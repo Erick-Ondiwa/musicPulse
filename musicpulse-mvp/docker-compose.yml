@@ -1,0 +1,71 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: musicpulse
+      POSTGRES_USER: musicpulse
+      POSTGRES_PASSWORD: musicpulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - musicpulse_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U musicpulse -d musicpulse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - huggingface_cache:/root/.cache/huggingface
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  worker:
+    build: .
+    env_file: .env
+    volumes:
+      - .:/app
+      - huggingface_cache:/root/.cache/huggingface
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A app.workers.celery_app:celery worker --loglevel=INFO
+
+  beat:
+    build: .
+    env_file: .env
+    volumes:
+      - .:/app
+      - huggingface_cache:/root/.cache/huggingface
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A app.workers.celery_app:celery beat --loglevel=INFO
+
+volumes:
+  musicpulse_pgdata:
+  huggingface_cache:
