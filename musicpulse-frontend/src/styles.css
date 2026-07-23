@@ -1279,6 +1279,183 @@ input:focus {
 }
 
 
+.popular-activity {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.activity-summary {
+  min-width: 0;
+}
+
+.popular-results {
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(226 232 240);
+}
+
+.popular-results-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.popular-results-heading h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: rgb(15 23 42);
+}
+
+.popular-results-heading p {
+  margin: 0.25rem 0 0;
+  color: rgb(100 116 139);
+  font-size: 0.875rem;
+}
+
+.result-count {
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  background: rgb(239 246 255);
+  color: rgb(37 99 235);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.popular-video-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.popular-video-row {
+  display: grid;
+  grid-template-columns: auto 96px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem;
+  border: 1px solid rgb(226 232 240);
+  border-radius: 1rem;
+  background: white;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.popular-video-row:hover {
+  transform: translateY(-2px);
+  border-color: rgb(191 219 254);
+  box-shadow: 0 12px 28px rgb(15 23 42 / 0.08);
+}
+
+.popular-video-rank {
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 0.75rem;
+  background: rgb(15 23 42);
+  color: white;
+  font-weight: 800;
+}
+
+.popular-video-thumbnail {
+  width: 96px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.7rem;
+  background: rgb(226 232 240);
+}
+
+.popular-video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: rgb(100 116 139);
+}
+
+.popular-video-details {
+  min-width: 0;
+}
+
+.popular-video-details h4 {
+  margin: 0;
+  overflow: hidden;
+  color: rgb(15 23 42);
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popular-video-details > p {
+  margin: 0.25rem 0 0;
+  color: rgb(100 116 139);
+  font-size: 0.85rem;
+}
+
+.popular-video-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.65rem;
+}
+
+.popular-video-metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: rgb(71 85 105);
+  font-size: 0.78rem;
+}
+
+.popular-video-link {
+  white-space: nowrap;
+}
+
+.activity-empty.compact {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+@media (max-width: 760px) {
+  .popular-video-row {
+    grid-template-columns: auto 80px minmax(0, 1fr);
+  }
+
+  .popular-video-thumbnail {
+    width: 80px;
+  }
+
+  .popular-video-link {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 520px) {
+  .popular-video-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .popular-video-thumbnail {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .popular-video-link {
+    grid-column: 1 / -1;
+  }
+}
+
+
 /* RAG-specific interface elements. */
 .new-chat-button { margin-left: auto; }
 .rag-sources { margin-top: 12px; padding: 11px; border-radius: 11px; background: rgba(59,130,246,.06); border: 1px solid rgba(96,165,250,.14); }

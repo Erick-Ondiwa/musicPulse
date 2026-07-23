@@ -24,7 +24,7 @@ export default function AssistantPage() {
 
   useEffect(() => {
     if (!messages.length) {
-      setMessages([{ role: "assistant", answer: "Ask a music-intelligence question. I combine SQL analytics with retrieved MusicPulse evidence, then use an LLM when configured.", metric_definition: "Responses are grounded in stored MusicPulse data.", generated_at: new Date().toISOString(), data: [], sources: [], provider: "system" }]);
+      setMessages([{ role: "assistant", answer: "Hi, I am MusicPulse AI assistant.", metric_definition: "I can help you with questions related to trending songs, recent releases, and most popular songs", generated_at: new Date().toISOString(), data: [], sources: [], provider: "MusicPulse AI" }]);
     }
   }, [messages.length]);
 
@@ -57,7 +57,7 @@ export default function AssistantPage() {
       <section className="assistant-panel panel">
         <div className="chat-header">
           <div className="assistant-avatar"><Bot size={24} /></div>
-          <div><strong>MusicPulse RAG Analyst</strong><span><i /> SQL + semantic retrieval + optional LLM</span></div>
+          <div><strong>MusicPulse AI</strong></div>
           <button className="button secondary new-chat-button" type="button" onClick={startNew}><Plus size={16} />New chat</button>
         </div>
 
@@ -86,14 +86,14 @@ export default function AssistantPage() {
         </div>
 
         <form className="chat-input" onSubmit={submit}>
-          <div className="input-wrap"><MessageCircleQuestion size={19} /><input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask a complex music intelligence question..." /></div>
+          <div className="input-wrap"><MessageCircleQuestion size={19} /><input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Type here.." /></div>
           <button className="button primary send-button" type="submit" disabled={!question.trim() || mutation.isPending}><Send size={18} />Ask</button>
         </form>
       </section>
 
       <aside className="assistant-sidebar">
-        <article className="panel"><div className="side-card-heading"><Sparkles size={19} /><div><strong>Try asking</strong><span>RAG and analytics questions</span></div></div><div className="suggestion-list">{suggestions.map((item) => <button key={item} type="button" onClick={() => setQuestion(item)}>{item}</button>)}</div></article>
-        <article className="panel"><div className="side-card-heading"><MessageCircleQuestion size={19} /><div><strong>Recent chats</strong><span>Stored in PostgreSQL</span></div></div><div className="suggestion-list">{conversations.data?.slice(0, 6).map((chat) => <button key={chat.id} type="button" onClick={async () => { const loaded = await musicApi.getConversation(chat.id); setConversationId(chat.id); setMessages(loaded.messages.map((m) => m.role === "user" ? { role: "user", question: m.content, generated_at: m.created_at } : { role: "assistant", answer: m.content, metric_definition: "Loaded conversation", generated_at: m.created_at, data: [], sources: [], provider: "history" })); }}>{chat.title}</button>)}</div></article>
+        <article className="panel"><div className="side-card-heading"><Sparkles size={19} /><div><strong>Try asking</strong></div></div><div className="suggestion-list">{suggestions.map((item) => <button key={item} type="button" onClick={() => setQuestion(item)}>{item}</button>)}</div></article>
+        <article className="panel"><div className="side-card-heading"><MessageCircleQuestion size={19} /><div><strong>Recent Chats</strong></div></div><div className="suggestion-list">{conversations.data?.slice(0, 6).map((chat) => <button key={chat.id} type="button" onClick={async () => { const loaded = await musicApi.getConversation(chat.id); setConversationId(chat.id); setMessages(loaded.messages.map((m) => m.role === "user" ? { role: "user", question: m.content, generated_at: m.created_at } : { role: "assistant", answer: m.content, metric_definition: "Loaded conversation", generated_at: m.created_at, data: [], sources: [], provider: "history" })); }}>{chat.title}</button>)}</div></article>
       </aside>
     </div>
   );

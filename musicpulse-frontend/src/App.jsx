@@ -13,17 +13,17 @@ import {
   X,
 } from "lucide-react";
 import DashboardPage from "./pages/DashboardPage";
-import RankingsPage from "./pages/RankingsPage";
-import AssistantPage from "./pages/AssistantPage";
 import IngestionPage from "./pages/IngestionPage";
 import KnowledgePage from "./pages/KnowledgePage";
+import RankingsPage from "./pages/RankingsPage";
+import AssistantPage from "./pages/AssistantPage";
 
 const navigation = [
   { id: "dashboard", label: "Dashboard", icon: ChartNoAxesCombined },
   { id: "rankings", label: "Rankings", icon: Trophy },
+  { id: "discovery", label: "Music Discovery", icon: Database },
+  { id: "all", label: "All Collections", icon: BookOpen },
   { id: "assistant", label: "AI Assistant", icon: Bot },
-  { id: "knowledge", label: "RAG Knowledge", icon: BookOpen },
-  { id: "ingestion", label: "Data Ingestion", icon: Database },
 ];
 
 const pageTitles = {
@@ -37,20 +37,20 @@ const pageTitles = {
     title: "Music Rankings",
     description: "Explore trending, latest, and most-viewed songs from your database.",
   },
-  assistant: {
-    eyebrow: "Database-grounded AI",
-    title: "Music Assistant",
-    description: "Ask natural-language questions and receive answers supported by stored metrics.",
+  discovery: {
+    eyebrow: "Collection operations",
+    title: "Music Discovery",
+    description: "",
   },
-  knowledge: {
+  all: {
     eyebrow: "Retrieval augmented generation",
-    title: "RAG Knowledge Base",
+    title: "All Collections",
     description: "Manage the evidence documents used for semantic retrieval and grounded answers.",
   },
-  ingestion: {
-    eyebrow: "Collection operations",
-    title: "Data Ingestion",
-    description: "Trigger YouTube collection jobs and monitor synchronization activity.",
+  assistant: {
+    eyebrow: "",
+    title: "Music Intelligence Assistant",
+    description: "",
   },
 };
 
@@ -105,7 +105,7 @@ export default function App() {
             <span />
             {/* Backend connected */}
           </div>
-          <p>FastAPI · PostgreSQL · YouTube</p>
+          {/* <p>FastAPI · PostgreSQL · YouTube</p> */}
         </div>
       </aside>
 
@@ -144,9 +144,10 @@ export default function App() {
         <section className="page-content">
           {activePage === "dashboard" && <DashboardPage />}
           {activePage === "rankings" && <RankingsPage />}
+          {activePage === "discovery" && <IngestionPage />}
+          {activePage === "all" && <KnowledgePage />}
           {activePage === "assistant" && <AssistantPage />}
-          {activePage === "knowledge" && <KnowledgePage />}
-          {activePage === "ingestion" && <IngestionPage />}
+
         </section>
       </main>
     </div>

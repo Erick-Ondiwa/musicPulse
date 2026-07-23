@@ -107,9 +107,9 @@ export default function IngestionPage() {
             <Youtube size={24} />
           </div>
           <div>
-            <h2>YouTube collection settings</h2>
+            <h2>You Can Filter By</h2>
             <p>
-              These values are applied to manually triggered ingestion jobs.
+              These values are applied during fetching.
             </p>
           </div>
         </div>
@@ -187,7 +187,6 @@ export default function IngestionPage() {
           <Clock size={20} />
           <div>
             <strong>Automatic collection schedule</strong>
-            <p>Configured by Celery Beat in the backend.</p>
           </div>
         </div>
         <div className="schedule-tags">
